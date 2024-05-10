@@ -40,7 +40,18 @@ class AuthController extends Controller{
 
         $credentials = $request->only('email','password') ; 
         if(Auth::attempt($credentials)){
-            return redirect()->intended('dashboard')->withSuccess('Signed in') ; 
+            $user = Auth::user() ; 
+
+            if($user->hasRole('client')){
+                return redirect('/client-dashboard');
+            }elseif($user->hasRole('director')){
+                return redirect('/director-dashboard');
+            }else{
+                return redirect('/') ; 
+            }
+            
+            // return redirect()->intended('dashboard')
+            // ->withSuccess('Signed in') ; 
         }
         $validator['emailPassword'] = "Email / password incorrect" ;
         return redirect("login")->withErrors($validator);
@@ -54,12 +65,23 @@ class AuthController extends Controller{
     }
 
     public function create(array $data){
-        return User::create([
+        // return User::create([
+        //     'name' => $data['name'] ,
+        //     'email' => $data['email'] ,
+        //     'password' => Hash::make($data['password']) 
+        // ]);
+        $user = User::create([
             'name' => $data['name'] ,
             'email' => $data['email'] ,
+            'role_id' => 1,
             'password' => Hash::make($data['password']) 
         ]);
+
+        $user->assignRole('client');
         Auth::login($user);
+
+        return $user ; 
+
     }
 
 }

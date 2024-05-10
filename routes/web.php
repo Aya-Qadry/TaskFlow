@@ -24,9 +24,10 @@ Route::get('/', function () {
     Route::get('/register' , [AuthController::class , 'register']) -> name('register') ; 
     Route::post('/register' , [AuthController::class , 'registerPost']) -> name('register.action') ; 
     Route::get('/login' , [AuthController::class , 'login']) -> name('login') ; 
-    Route::post('/login' , [AuthController::class] ,'loginPost') -> name('login.action') ; 
+    Route::post('/login' , [AuthController::class ,'loginPost']) -> name('login.action') ; 
 // }) ; 
 
+Route::get('/client-dashboard', function () {return view('client-dashboard'); });
 
 Route::group(['middleware' => 'auth'] , function(){
     Route::get('/dashboard' , [AuthController::class , 'dashboard']) ; 

@@ -16,7 +16,7 @@
     <form action="{{ route('login.action')}}" method="POST">
     @csrf
       <div class="input-box">
-        <input type="text" placeholder="Enter your name" required name='name'>
+        <input type="text" placeholder="Enter your name" required name='email'>
       </div>
 
         <!-- @if ($errors->has('email')) -->
