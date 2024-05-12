@@ -28,6 +28,7 @@ Route::get('/', function () {
 // }) ; 
 
 Route::get('/client-dashboard', function () {return view('client-dashboard'); });
+Route::get('/director-dashboard', function () {return view('director/director-dashboard'); });
 
 Route::group(['middleware' => 'auth'] , function(){
     Route::get('/dashboard' , [AuthController::class , 'dashboard']) ; 
