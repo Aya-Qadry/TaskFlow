@@ -22,34 +22,14 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
 
-        // Director
-        $user = User::create([
-            'name' => 'aya' , 
-            'email' => 'aya@gmail.com',
-            'password' => Hash::make('1234567890') 
+        $this->call([
+            PermissionSeeder::class ,
+            RoleSeeder::class , 
+            SuperAdminSeeder::class,
         ]);
-
-        $role = Role::create([
-            'name' => 'director' 
-        ]);
-
-        $permissions = Permission::pluck('id', 'id')->all();
-
-        $role->syncPermissions($permissions);
-
-        $user->assignRole([$role->id]);
 
     }
-    private $permissions = [
-        'role-list',
-        'role-create',
-        'role-edit',
-        'role-delete',
-        'project-list',
-        'project-create',
-        'project-edit',
-        'project-delete'
-    ];
+    
 
 
 

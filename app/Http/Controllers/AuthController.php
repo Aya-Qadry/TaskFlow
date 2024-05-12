@@ -25,7 +25,7 @@ class AuthController extends Controller{
 
         $data = $request->all() ; 
         $check = $this->create($data) ;
-        return redirect("dashboard")->withSuccess('You have successfully created your account ! ');
+        return redirect("client-dashboard")->withSuccess('You have successfully created your account ! ');
     }
 
     public function login(){
@@ -72,14 +72,12 @@ class AuthController extends Controller{
         // ]);
         $user = User::create([
             'name' => $data['name'] ,
-            'email' => $data['email'] ,
-            'role_id' => 1,
+            'email' => $data['email'] , 
             'password' => Hash::make($data['password']) 
         ]);
 
         $user->assignRole('client');
         Auth::login($user);
-
         return $user ; 
 
     }

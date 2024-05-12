@@ -27,7 +27,7 @@ Route::get('/', function () {
     Route::post('/login' , [AuthController::class ,'loginPost']) -> name('login.action') ; 
 // }) ; 
 
-Route::get('/client-dashboard', function () {return view('client-dashboard'); });
+Route::get('/client-dashboard', function () {return view('client/client-dashboard'); });
 Route::get('/director-dashboard', function () {return view('director/director-dashboard'); });
 
 Route::group(['middleware' => 'auth'] , function(){
