@@ -16,8 +16,11 @@ use App\Http\Controller\HomeController ;
 |
 */
 
+// Route::get('/', function () {
+//     return view('welcome');
+// });
 Route::get('/', function () {
-    return view('welcome');
+    return view('landing');
 });
 
 // Route::group(['middleware' => 'guest'] , function(){
