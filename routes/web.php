@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route ;
 use App\Http\Controllers\AuthController ; 
 use App\Http\Controller\HomeController ; 
+use App\Http\Controller\ProjectController ; 
 
 
 /*
@@ -37,3 +38,8 @@ Route::group(['middleware' => 'auth'] , function(){
     Route::get('/dashboard' , [AuthController::class , 'dashboard']) ; 
     Route::delete('/logout' , [AuthController::class , 'logout']) -> name('logout') ; 
 });
+
+Route::resources([
+    
+    'projects' => ProjectController::class,
+]);

@@ -25,7 +25,7 @@ class SuperAdminSeeder extends Seeder
         ]);
 
         $director->assignRole('director');
-
+        // $director->givePermissionTo(['create-project']);
         //maybe add the other users just to test
     }
 }
