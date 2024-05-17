@@ -3,7 +3,7 @@
 use Illuminate\Support\Facades\Route ;
 use App\Http\Controllers\AuthController ; 
 use App\Http\Controller\HomeController ; 
-use App\Http\Controller\ProjectController ; 
+use App\Http\Controllers\ProjectController ; 
 
 
 /*
@@ -40,6 +40,5 @@ Route::group(['middleware' => 'auth'] , function(){
 });
 
 Route::resources([
-    
     'projects' => ProjectController::class,
 ]);

@@ -1,6 +1,3 @@
-<!-- @extends('layouts.app')
-
-@section('content') -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -19,7 +16,7 @@
         <table class="table table-striped table-bordered">
             <thead>
                 <tr>
-                <th scope="col">S#</th>
+                <th scope="col">S</th>
                 <th scope="col">Name</th>
                 <th scope="col">Description</th>
                 <th scope="col">Action</th>
@@ -62,6 +59,5 @@
 
     </div>
 </div>
-<!-- @endsection -->
 </body>
 </html>
