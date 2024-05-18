@@ -54,7 +54,16 @@ class ProjectController extends Controller
      */
     public function store(StoreProjectRequest $request)
     {
-        Project::create($request->all());
+        // Project::create($request->all());
+
+        $project = new Project();
+        $project->name = $request->input('name');
+        $project->description = $request->input('description');
+        $project->due_date = $request->input('due_date') ; 
+        $project->client_id = Auth::id(); 
+        // print(Auth::id()) ; 
+        $project->save();
+
         return redirect()->route('projects.index')->withSuccess('New project added ');
     }
 

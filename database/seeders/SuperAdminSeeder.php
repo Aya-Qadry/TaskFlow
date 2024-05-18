@@ -25,6 +25,16 @@ class SuperAdminSeeder extends Seeder
         ]);
 
         $director->assignRole('director');
+
+        $client = User::create([
+            'name' => 'client' , 
+            'email' => 'client@gmail.com',
+            'password' => Hash::make("1234567890") 
+        ]);
+
+        $client->assignRole('client');
+
+
         // $director->givePermissionTo(['create-project']);
         //maybe add the other users just to test
     }
