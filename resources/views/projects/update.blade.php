@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>update</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+
 </head>
 <body>
-    
-    @section('content')
     <div class="container">
         <h1>Edit Project</h1>
         <form action="{{ route('projects.update', $project->id) }}" method="POST">
@@ -28,6 +28,5 @@
             <button type="submit" class="btn btn-primary">Update Project</button>
         </form>
     </div>
-    @endsection
 </body>
 </html>

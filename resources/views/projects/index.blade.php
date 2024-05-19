@@ -49,12 +49,15 @@
                         <i class="bi bi-eye"></i> Show</a>
 
                             @can('edit-project')
-                                <a href="{{ route('projects.update', $project->id) }}" class="btn btn-primary btn-sm"><i class="bi bi-pencil"></i> Edit</a>
-
+                                <a href="{{ route('projects.edit', $project->id) }}" class="btn btn-primary btn-sm"><i class="bi bi-pencil"></i> Edit</a>
                             @endcan
 
+                            @csrf
                             @can('delete-project')
-                                <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Do you want to delete this project?');"><i class="bi bi-trash"></i> Delete</button>
+                                <!-- <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Do you want to delete this project?');"><i class="bi bi-trash"></i> Delete</button> -->
+                                <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete this project?');">
+                                <i class="bi bi-trash"></i> Delete
+                                </button>
                             @endcan
                         </form>
                     </td>
