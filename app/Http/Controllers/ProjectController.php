@@ -8,6 +8,7 @@ use App\Http\Requests\UpdateProjectRequest;
 
 use Illuminate\View\View;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Auth; 
 
 class ProjectController extends Controller
 {
@@ -56,29 +57,29 @@ class ProjectController extends Controller
     {
         // Project::create($request->all());
 
-        $project = new Project();
-        $project->name = $request->input('name');
-        $project->description = $request->input('description');
-        $project->due_date = $request->input('due_date') ; 
-        $project->client_id = Auth::id(); 
-        // print(Auth::id()) ; 
-        $project->save();
+        
+        $project = Project::create([
+            'name' => $request->input('name') , 
+            'description' =>  $request->input('description') , 
+            'due_date' =>  $request->input('due_date') ,
+            'client_id' => Auth::id()   
+        ]);
 
         return redirect()->route('projects.index')->withSuccess('New project added ');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Project  $project
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Project $project)
-    {
-        return view('projects.show',[
-            'project' => $project 
-        ]);
-    }
+    // /**
+    //  * Display the specified resource.
+    //  *
+    //  * @param  \App\Models\Project  $project
+    //  * @return \Illuminate\Http\Response
+    //  */
+    // public function show(Project $project)
+    // {
+    //     return view('projects.update',[
+    //         'project' => $project 
+    //     ]);
+    // }
 
     /**
      * Show the form for editing the specified resource.
@@ -88,7 +89,10 @@ class ProjectController extends Controller
      */
     public function edit(Project $project)
     {
-        //
+        // return view('projects.update', compact('project'));
+        return view('projects.update',[
+                    'project' => $project 
+                ]);
     }
 
     /**
@@ -100,7 +104,13 @@ class ProjectController extends Controller
      */
     public function update(UpdateProjectRequest $request, Project $project)
     {
-        //
+        $project->update([
+            'name'=>$request->input('name') , 
+            'description' => $request->input('description') , 
+            'due_date' => $request->input('due_date') 
+        ]);
+
+        return redirect() -> route('projects.index') ->withSuccess('Project updated successfully') ;
     }
 
     /**

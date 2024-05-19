@@ -45,7 +45,7 @@
                     <div class="mb-3 row">
                         <label for="description" class="col-md-4 col-form-label text-md-end text-start">Date</label>
                         <div class="col-md-6">
-                            <input type="date" id="date" name="date">
+                            <input type="date" id="due_date" name="due_date">
                         </div>
                     </div>
 
