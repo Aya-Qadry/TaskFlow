@@ -15,11 +15,21 @@ class RoleSeeder extends Seeder
      */
     public function run()
     {
-        Role::create(['name' => 'director']);
+        $director = Role::create(['name' => 'director']);
         $team_manager = Role::create(['name' => 'team_manager']);
         $client = Role::create(['name' => 'client']);
 
         $team_manager->givePermissionTo([
+            'create-user',
+            'edit-user',
+            'delete-user',
+            'list-project',
+            'create-project',
+            'edit-project',
+            'delete-project'
+        ]);
+
+        $director->givePermissionTo([
             'create-user',
             'edit-user',
             'delete-user',

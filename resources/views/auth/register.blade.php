@@ -28,6 +28,10 @@
             <!-- <span class="text-danger">{{ $errors->first('email') }}</span> -->
         <!-- @endif   -->
     </div>
+    <div class="input-box">
+        <input type="text" placeholder="Enter your company" required name='company'>
+      </div>
+
       <div class="input-box">
         <input type="password" placeholder="Create password" required name='password'>
       </div>

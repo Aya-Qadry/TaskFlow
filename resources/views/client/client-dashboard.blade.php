@@ -10,7 +10,7 @@
     @canany(['create-project'])
         <a class="btn btn-warning" href="{{ route('projects.index') }}">
         <i class="bi bi-bag"></i> Manage project</a>
-        <h2>hh</h2>
+        <h2>hh</h2> 
     @endcanany
 </body>
 </html>

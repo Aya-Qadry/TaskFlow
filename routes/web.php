@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route ;
 use App\Http\Controllers\AuthController ; 
 use App\Http\Controller\HomeController ; 
 use App\Http\Controllers\ProjectController ; 
+use App\Http\Controllers\DirectorController ; 
 
 
 /*
@@ -32,7 +33,7 @@ Route::get('/', function () {
 // }) ; 
 
 Route::get('/client-dashboard', function () {return view('client/client-dashboard'); });
-Route::get('/director-dashboard', function () {return view('director/director-dashboard'); });
+Route::get('/director-dashboard', function () {return view('director/dashboard'); });
 
 Route::group(['middleware' => 'auth'] , function(){
     Route::get('/dashboard' , [AuthController::class , 'dashboard']) ; 
@@ -41,4 +42,14 @@ Route::group(['middleware' => 'auth'] , function(){
 
 Route::resources([
     'projects' => ProjectController::class,
+    'director'  => DirectorController::class , 
 ]);
+ // Routes for ProjectController, intended for clients
+// Route::prefix('client')->name('client.')->group(function() {
+//     Route::resource('projects', ProjectController::class);
+// });
+
+// Routes for DirectorController, intended for directors
+// Route::prefix('director')->name('director.')->group(function() {
+//     Route::resource('projects', DirectorController::class);
+// });

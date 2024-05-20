@@ -29,7 +29,8 @@ class SuperAdminSeeder extends Seeder
         $client = User::create([
             'name' => 'client' , 
             'email' => 'client@gmail.com',
-            'password' => Hash::make("1234567890") 
+            'password' => Hash::make("1234567890") ,
+            'company' =>'Company'
         ]);
 
         $client->assignRole('client');

@@ -6,6 +6,11 @@
     <title>Document</title>
 </head>
 <body>
-    <h1>Welcome director</h1>
+    <h1>ash</h1>
+    @canany(['create-project'])
+        <a class="btn btn-warning" href="{{ route('director.index') }}">
+        <i class="bi bi-bag"></i> Manage project</a>
+    @endcanany
+
 </body>
 </html>

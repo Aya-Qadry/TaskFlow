@@ -62,7 +62,8 @@ class ProjectController extends Controller
             'name' => $request->input('name') , 
             'description' =>  $request->input('description') , 
             'due_date' =>  $request->input('due_date') ,
-            'client_id' => Auth::id()   
+            'client_id' => Auth::id()     
+            // 'status' => 'pending'
         ]);
 
         return redirect()->route('projects.index')->withSuccess('New project added ');
@@ -108,6 +109,8 @@ class ProjectController extends Controller
             'name'=>$request->input('name') , 
             'description' => $request->input('description') , 
             'due_date' => $request->input('due_date') 
+            // 'company' =>$request->input('company')
+
         ]);
 
         return redirect() -> route('projects.index') ->withSuccess('Project updated successfully') ;
