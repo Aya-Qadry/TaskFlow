@@ -42,8 +42,15 @@ Route::group(['middleware' => 'auth'] , function(){
 
 Route::resources([
     'projects' => ProjectController::class,
-    'director'  => DirectorController::class , 
+    // 'director'  => DirectorController::class , 
 ]);
+
+Route::prefix('director')->name('director.')->group(function () {
+    Route::get('createTeam', [DirectorController::class, 'createTeam'])->name('createTeam');
+    Route::get('index', [DirectorController::class, 'index'])->name('index');
+    Route::post('storeTeam', [DirectorController::class, 'storeTeam'])->name('storeTeam');
+});
+
  // Routes for ProjectController, intended for clients
 // Route::prefix('client')->name('client.')->group(function() {
 //     Route::resource('projects', ProjectController::class);

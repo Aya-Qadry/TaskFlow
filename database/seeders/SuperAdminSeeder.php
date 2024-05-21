@@ -35,6 +35,13 @@ class SuperAdminSeeder extends Seeder
 
         $client->assignRole('client');
 
+        $team_manager = User::create([
+            'name' => 'manager' , 
+            'email' => 'manager@gmail.com',
+            'password' => Hash::make("1234567890") 
+        ]) ; 
+        
+        $team_manager->assignRole('team_manager') ; 
 
         // $director->givePermissionTo(['create-project']);
         //maybe add the other users just to test

@@ -63,21 +63,44 @@
                 <div class="col-lg-6">
                     <div class="card card-danger">
                         <div class="card-header" style="background-color: #006249;">
-                            <h3 class="card-title">Recent Project Requests</h3>
+                            <h3 class="card-title">Teams
+                            <a href="{{ route('director.createTeam') }}" class="btn btn-success btn-sm my-2"><i class="bi bi-plus-circle"></i> Add New Team</a>
+                            </h3>
 
                         </div>
                         <div class="card-body">
-                            <div class="chartjs-size-monitor">
-                                <div class="chartjs-size-monitor-expand">
-                                    <div class=""></div>
-                                </div>
-                                <div class="chartjs-size-monitor-shrink">
-                                    <div class=""></div>
-                                </div>
-                            </div>
-                            <canvas id="donutChart"
-                                style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%; display: block; width: 419px;"
-                                width="419" height="250" class="chartjs-render-monitor"></canvas>
+                        <table class="table table-striped table-bordered">
+                        <thead>
+                            <tr>
+                                <th scope="col">S</th>
+                                <th scope="col">Name</th>
+                                <th scope="col">Description</th>
+                                <th scope="col">Manager</th> 
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @forelse ($teams as $team)
+                                <tr>
+                                    <th scope="row">{{ $loop->iteration }}</th>
+                                    <td>{{ $team->name }}</td>
+                                    <td>{{ $team->description }}</td>
+                                    <td> 
+                                    {{ $team->manager->name }}  
+                                    </td>
+                                    <td>
+                                    </td>
+                                </tr>
+                            @empty
+                                <tr>
+                                    <td colspan="5">
+                                        <span class="text-danger"><strong>No projects found!</strong></span>
+                                    </td>
+                                </tr>
+                            @endforelse
+                        </tbody>
+                    </table>
+                  
+
                         </div>
                     </div>
                 </div>
@@ -105,7 +128,7 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-lg-12">
+                <div class="col-lg-12"> 
                     <div class="card">
                         <div class="card-header" style="background-color:#dc3545; color: white;">
                             <h3 class="card-title">Projects</h3>
