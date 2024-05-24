@@ -364,6 +364,7 @@ body:before {
   transition: background 0.3s;
   background-repeat: no-repeat;
 }
+
 .main-blog + .main-blog {
   margin-left: 20px;
   width: 35%;

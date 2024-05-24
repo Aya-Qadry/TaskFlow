@@ -50,7 +50,7 @@ class DirectorController extends Controller
     }
 
     public function projects():View{
-        $projects = Project::latest()->paginate(3);
+        $projects = Project::latest()->paginate(4);
         $name = Auth::user()->name;
 
         return view('director.projects',

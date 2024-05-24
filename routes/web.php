@@ -42,12 +42,14 @@ Route::group(['middleware' => 'auth'] , function(){
 
 Route::resources([
     'projects' => ProjectController::class,
-    // 'director'  => DirectorController::class , 
+    //'director'  => DirectorController::class , 
 ]);
 
 Route::prefix('director')->name('director.')->group(function () {
     Route::get('createTeam', [DirectorController::class, 'createTeam'])->name('createTeam');
     Route::get('index', [DirectorController::class, 'index'])->name('index');
+    Route::get('edit', [DirectorController::class, 'edit'])->name('edit');
+    Route::get('destroy', [DirectorController::class, 'destroy'])->name('destroy');
     Route::get('projects', [DirectorController::class, 'projects'])->name('projects');
     Route::post('storeTeam', [DirectorController::class, 'storeTeam'])->name('storeTeam');
 });
