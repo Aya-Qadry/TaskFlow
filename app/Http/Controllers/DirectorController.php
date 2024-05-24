@@ -10,6 +10,9 @@ use App\Http\Requests\UpdateProjectRequest;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
 use Illuminate\Support\Facades\Auth;
+use Spatie\Permission\Models\Role;
+use Carbon\Carbon;
+
 
 class DirectorController extends Controller
 {
@@ -22,14 +25,39 @@ class DirectorController extends Controller
         $this->middleware('permission:delete-project', ['only' => ['destroy']]);
     }
 
-    public function index(): View
+ 
+ 
+    public function index()
     {
-        $projects = Project::latest()->paginate(3);
-        // $teams = Team::latest()->paginate(4) ; 
+        $clientRole = Role::where('name', 'client')->first();
+    
+        $clients = $clientRole->users;
+    
+        $clientsByMonth = $clients->groupBy(function ($client) {
+            return Carbon::parse($client->created_at)->format('M Y');
+        });
+    
+        $labels = array_reverse(array_keys($clientsByMonth->toArray()));
+        $data = array_reverse(array_values($clientsByMonth->map(function ($monthClients) {
+            return $monthClients->count();
+        })->toArray()));
+    
         $teams = Team::with('manager')->get();
-
-        return view('director.index', compact('projects','teams'));
+    
+        $name = Auth::user()->name;
+    
+        return view('director.index', compact('labels', 'data', 'teams', 'name'));
     }
+
+    public function projects():View{
+        $projects = Project::latest()->paginate(3);
+        $name = Auth::user()->name;
+
+        return view('director.projects',
+                     compact('projects','name')) ; 
+    }
+
+    
 
     public function createTeam() : View{
         $teamManagers = User::role('team_manager')->get();

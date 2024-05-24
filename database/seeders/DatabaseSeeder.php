@@ -19,7 +19,11 @@ class DatabaseSeeder extends Seeder
             PermissionSeeder::class ,
             RoleSeeder::class , 
             SuperAdminSeeder::class,
+            ProjectsTableSeeder::class,
         ]);
+
+        // \App\Models\Project::factory(50)->create();
+
 
     }
     

@@ -5,21 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link  href="{{asset('assets/css/director-index.css')}}" rel="stylesheet" type="text/css"> 
+    <link  href="{{asset('assets/css/director-projects.css')}}" rel="stylesheet" type="text/css"> 
     <script src="director-index.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
 
-
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"
-        integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF"
-        crossorigin="anonymous"></script>
-
-    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css">
-    <!-- Ionicons -->
-    <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
-
-
+ 
 </head>
 <body>
         <div class="container">
@@ -51,7 +40,7 @@
             <svg viewBox="0 0 24 24" fill="currentColor">
             <path fill-rule="evenodd" clip-rule="evenodd" d="M12.1535 16.64L14.995 13.77C15.2822 13.47 15.2822 13 14.9851 12.71C14.698 12.42 14.2327 12.42 13.9455 12.71L12.3713 14.31V9.49C12.3713 9.07 12.0446 8.74 11.6386 8.74C11.2327 8.74 10.896 9.07 10.896 9.49V14.31L9.32178 12.71C9.03465 12.42 8.56931 12.42 8.28218 12.71C7.99505 13 7.99505 13.47 8.28218 13.77L11.1139 16.64C11.1832 16.71 11.2624 16.76 11.3515 16.8C11.4406 16.84 11.5396 16.86 11.6386 16.86C11.7376 16.86 11.8267 16.84 11.9158 16.8C12.005 16.76 12.0842 16.71 12.1535 16.64ZM19.3282 9.02561C19.5609 9.02292 19.8143 9.02 20.0446 9.02C20.302 9.02 20.5 9.22 20.5 9.47V17.51C20.5 19.99 18.5 22 16.0446 22H8.17327C5.58911 22 3.5 19.89 3.5 17.29V6.51C3.5 4.03 5.4901 2 7.96535 2H13.2525C13.5 2 13.7079 2.21 13.7079 2.46V5.68C13.7079 7.51 15.1931 9.01 17.0149 9.02C17.4333 9.02 17.8077 9.02318 18.1346 9.02595C18.3878 9.02809 18.6125 9.03 18.8069 9.03C18.9479 9.03 19.1306 9.02789 19.3282 9.02561ZM19.6045 7.5661C18.7916 7.5691 17.8322 7.5661 17.1421 7.5591C16.047 7.5591 15.145 6.6481 15.145 5.5421V2.9061C15.145 2.4751 15.6629 2.2611 15.9579 2.5721C16.7203 3.37199 17.8873 4.5978 18.8738 5.63395C19.2735 6.05379 19.6436 6.44249 19.945 6.7591C20.2342 7.0621 20.0223 7.5651 19.6045 7.5661Z" />
             </svg>
-            Teams
+            projects
             </a>
             <a class="sidebar-link" href="#">
                 <svg viewBox="0 0 24 24" fill="currentColor">
@@ -90,39 +79,45 @@
         </div>
         </div>
         <div class="main-container">
-        <div class="main-header anim" style="--delay: 0s">Dashboard</div>
+        <div class="main-header anim" style="--delay: 0s">Projects</div>
         <div class="main-blogs">
             <div class="main-blog anim" style="--delay: .1s">
-                <div class="main-blog__title">Clients</div>
+                <div class="main-blog__title"></div>
                     <div class="main-blog__author">
-                        <div class="author-img__wrapper">
-                            <canvas id="line-chart"  class="feather feather-check" width="700%" height="250"></canvas>
-                        </div>
-                    <div class="author-detail">
-                <!-- <div class="author-name">Thomas Hope</div> -->
-            <!-- <div class="author-info">53K views <span class="seperate"></span>2 weeks ago</div> -->
-            </div>
+                    <div class="project-table-container">
+                        <table class="project-table">
+                            <thead>
+                                <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col">Name</th>
+                                    <th scope="col">Description</th>
+                                    <th scope="col">Due Date</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @forelse ($projects as $project)
+                                    <tr>
+                                        <th scope="row">{{ $loop->iteration }}</th>
+                                        <td>{{ $project->name }}</td>
+                                        <td>{{ $project->description }}</td>
+                                        <td>{{ $project->due_date }}</td>
+                                    </tr>
+                                @empty
+                                    <tr>
+                                        <td colspan="4">
+                                            <span class="text-danger font-weight-bold">No projects found!</span>
+                                        </td>
+                                    </tr>
+                                @endforelse
+                            </tbody>
+                        </table>
+                    </div>   
             </div>
             <div class="main-blog__time">As of : <span id="today"></span></div>
         </div>
 
 
-            <div class="main-blog anim" style="--delay: .2s">
-            <div class="main-blog__title">Skateboard Tips You need to know</div>
-            <div class="main-blog__author tips">
-            <div class="main-blog__time">7 min</div>
-            <div class="author-img__wrapper">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check">
-                <path d="M20 6L9 17l-5-5" />
-            </svg>
-            <img class="author-img" src="https://images.unsplash.com/photo-1496345875659-11f7dd282d1d?ixid=MXwxMjA3fDB8MHxzZWFyY2h8Mzl8fG1lbnxlbnwwfHwwfA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" />
-            </div>
-            <div class="author-detail">
-            <div class="author-name">Tony Andrew</div>
-            <div class="author-info">53K views <span></span>2 weeks ago</div>
-            </div>
-            </div>
-            </div>
+            
         </div>
         <div class="small-header anim" style="--delay: .3s">Most Watched</div>
         <div class="videos">
@@ -351,44 +346,7 @@
         </div>
         </div>
 
-    <script>
-
-            var ctx = document.getElementById('line-chart').getContext('2d');
-            var myChart = new Chart(ctx, {
-                type: 'line',
-                data: {
-                    labels: {!! json_encode($labels) !!},
-                    datasets: [{
-                        label: 'Created accounts',
-                        data: {!! json_encode($data) !!},
-                        borderColor: 'rgb(90, 154, 196)',
-                        pointBackgroundColor: 'rgb(90, 154, 196)',
-                        borderWidth: 1
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    legend: {
-                        labels: {
-                            fontColor: "rgb(90, 154, 196)",
-                            fontSize: 14
-                        }
-                    },
-                    scales: {
-                        y: {
-                            beginAtZero: true,
-                            precision: 0 , 
-                        }
-                    }
-                }
-            });
-
-        const day = document.getElementById('today');
-        const today = new Date();
-        day.textContent = today.toISOString().split('T')[0];
-
-    </script>
+ 
  
 </body>
 </html>
