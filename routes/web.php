@@ -48,11 +48,22 @@ Route::resources([
 Route::prefix('director')->name('director.')->group(function () {
     Route::get('createTeam', [DirectorController::class, 'createTeam'])->name('createTeam');
     Route::get('index', [DirectorController::class, 'index'])->name('index');
-    Route::get('edit', [DirectorController::class, 'edit'])->name('edit');
+    //Route::get('edit', [DirectorController::class, 'edit'])->name('edit');
     Route::get('destroy', [DirectorController::class, 'destroy'])->name('destroy');
     Route::get('projects', [DirectorController::class, 'projects'])->name('projects');
+    Route::get('edit/{project}', [DirectorController::class, 'edit'])->name('edit');
+    Route::put('update/{project}', [DirectorController::class, 'update'])->name('update');
+
+    Route::delete('destroy/{project}', [DirectorController::class, 'destroy'])->name('destroy');
+
     Route::post('storeTeam', [DirectorController::class, 'storeTeam'])->name('storeTeam');
+
+    // clients : 
+    Route::get('indexClients', [DirectorController::class, 'indexClients'])->name('indexClients');
+
 });
+
+
 
  // Routes for ProjectController, intended for clients
 // Route::prefix('client')->name('client.')->group(function() {

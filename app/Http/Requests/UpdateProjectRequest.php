@@ -26,7 +26,8 @@ class UpdateProjectRequest extends FormRequest
         return [
             'name' => 'required|string|max:200',
             'description' => 'required|string',
-            'due_date' => 'required|date'
+            'status' => 'required|string|in:pending,in progress,completed',
+
         ];
     }
 }

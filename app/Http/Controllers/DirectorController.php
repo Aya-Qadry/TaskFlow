@@ -4,13 +4,16 @@ namespace App\Http\Controllers;
 use App\Models\Project;
 use App\Models\User;
 use App\Models\Team;
+use Spatie\Permission\Models\Role;
+
 use App\Http\Requests\StoreProjectRequest;
 use App\Http\Requests\StoreTeamRequest;
 use App\Http\Requests\UpdateProjectRequest;
+
 use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
 use Illuminate\Support\Facades\Auth;
-use Spatie\Permission\Models\Role;
+
 use Carbon\Carbon;
 
 
@@ -49,6 +52,14 @@ class DirectorController extends Controller
         return view('director.index', compact('labels', 'data', 'teams', 'name'));
     }
 
+
+    public function edit(Project $project): View 
+    {
+        $name = Auth::user()->name;
+        return view('director.edit', compact('project','name'));
+    }
+
+
     public function projects():View{
         $projects = Project::latest()->paginate(4);
         $name = Auth::user()->name;
@@ -80,28 +91,44 @@ class DirectorController extends Controller
     }
 
     public function create(): View
+
     {
+        $name = Auth::user()->name;
+
         return view('director.create');
     }
 
    
 
-    public function edit(Project $project): View
-    {
-        return view('director.edit', compact('project'));
-    }
-
     public function update(UpdateProjectRequest $request, Project $project): RedirectResponse
     {
-        $project->update($request->all());
+        $project->update([
+            'name' => $request->input('name'),
+            'description' => $request->input('description'),
+            'status' => $request->input('status'),
+        ]);
 
-        return redirect()->route('director.projects.index')->with('success', 'Project updated successfully');
+
+        return redirect()->route('director.projects')->with('success', 'Project updated successfully');
     }
+
+    
 
     public function destroy(Project $project): RedirectResponse
     {
         $project->delete();
 
-        return redirect()->route('director.projects.index')->with('success', 'Project deleted successfully');
+        return redirect()->route('director.projects')->with('success', 'Project deleted successfully');
+    }
+
+
+
+    // -------------------------- CLIENTS
+    public function indexClients():View{
+        $clients = User::role('client')->get();
+        $name = Auth::user()->name;
+
+        return view('director.clients.index',
+                     compact('clients','name')) ; 
     }
 }

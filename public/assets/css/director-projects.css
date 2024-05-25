@@ -6,29 +6,38 @@
     border-collapse: collapse;
     font-family: 'Roboto', sans-serif;
     color: #333;
-    border-radius: 14px;
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
     background-color: #e6e6e6;
-
-
 }
 
 .project-table th,
 .project-table td {
-    padding: 10px;
+    padding: 17px;
     text-align: left;
     border-bottom: 1px solid #ddd;
     background-color: #e6e6e6;
 
 }
+#main-blog{
+  background-color:#1f1d2b ;
+}
+
+body{
+  background-color: grey;
+}
+
 
 .project-table th {
-    color: #2e2e49    ;
+    color: #2e2e41b1    ;
     font-weight: 600;
+    color: #ff7551;
+    background-color:#dbd8d8 ;
+    border-radius: 0px;
 }
 
 .project-table tbody tr:nth-child(even) {
     
+
 }
 
 .project-table tbody tr:hover {
@@ -279,3 +288,5 @@
     background-color: #303f9f;
     border-color: #303f9f;
   }
+
+ 

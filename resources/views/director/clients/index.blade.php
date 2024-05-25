@@ -44,7 +44,7 @@
         </div>
         </div>
         <div class="main-container">
-        <div class="main-header anim" style="--delay: 0s">Projects</div>
+        <div class="main-header anim" style="--delay: 0s">Clients</div>
         <div class="main-blogs">
             <div class="main-blog anim" style="--delay: .1s" id="main-blog">
                 <div class="main-blog__title"></div>
@@ -54,7 +54,6 @@
                             <thead>
                                 <tr>
                                     <th scope="col">#</th>
-                                    <th scope="col">Logo</th>
                                     <th scope="col">Name</th>
                                     <th scope="col">Description</th>
                                     <th scope="col">Due Date</th>
@@ -66,7 +65,6 @@
                                 @forelse ($projects as $project)
                                     <tr>
                                         <th scope="row">{{ $project->id }}</th>
-                                        <td><img src="{{ $project->logo }}" alt="{{ $project->name }} Logo" class="project-logo"></td>
                                         <td>{{ $project->name }}</td>
                                         <td>{{ $project->description }}</td>
                                         <td>{{ $project->due_date }}</td>
