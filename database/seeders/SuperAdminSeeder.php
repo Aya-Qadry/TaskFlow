@@ -43,22 +43,20 @@ class SuperAdminSeeder extends Seeder
         ]) ; 
         
         $team_manager->assignRole('team_manager') ; 
+ 
 
-        for ($i = 0; $i < 1000; $i++) {
-            // Create user with random email
-            $user = User::create([
+        for ($i = 0; $i < 30; $i++) {
+            $user = User::factory()->create([
                 'name' => 'Client' . ($i + 1),
                 'email' => 'client' . ($i + 1) . '@example.com',
-                'password' => bcrypt('password'), // Change the password as needed
-                'email_verified_at' => now(),
-                'created_at' => Carbon::now()->subDays(rand(1, 365))  
+                'company' => 'Company ' . ($i + 1),
+                'created_at' => Carbon::now()->subDays(rand(1, 365)),
             ]);
 
             $user->assignRole('client');
         }
 
 
-        // $director->givePermissionTo(['create-project']);
-        //maybe add the other users just to test
+ 
     }
 }

@@ -29,7 +29,7 @@ class ProjectFactory extends Factory
         return [
             'client_id' => $client->id,
             'name' => $this->faker->words(3, true),
-            'description' => $this->faker->sentence(40),
+            'description' => $this->faker->sentence(30),
             'due_date' => $this->faker->dateTimeBetween('+1 week', '+2 months'),
             'status' => $this->faker->randomElement(['in progress', 'completed', 'pending']),
             'logo' => $this->faker->randomElement($logos),

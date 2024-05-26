@@ -125,7 +125,10 @@ class DirectorController extends Controller
 
     // -------------------------- CLIENTS
     public function indexClients():View{
-        $clients = User::role('client')->get();
+        $clients = User::role('client')
+              ->latest()
+              ->paginate(4);
+
         $name = Auth::user()->name;
 
         return view('director.clients.index',

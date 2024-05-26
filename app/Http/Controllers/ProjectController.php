@@ -32,10 +32,13 @@ class ProjectController extends Controller
      */
     public function index()
     {
-        return view('projects.index', [
-            'projects' => Project::latest()->paginate(3)
-        ]);
+        $clientId = auth()->id();
+    
+        $projects = Project::where('client_id', $clientId)->latest()->paginate(3);
+    
+        return view('projects.index', compact('projects'));
     }
+    
 
     /**
      * Show the form for creating a new resource.

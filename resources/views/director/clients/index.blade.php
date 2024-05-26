@@ -53,52 +53,35 @@
                         <table class="project-table">
                             <thead>
                                 <tr>
-                                    <th scope="col">#</th>
+                                    <th scope="col">Profile Picture</th>
                                     <th scope="col">Name</th>
-                                    <th scope="col">Description</th>
-                                    <th scope="col">Due Date</th>
-                                    <th scope="col">Status</th>
+                                    <th scope="col">Email</th>
+                                    <th scope="col">Company</th>
+                                    <th scope="col">Joined</th>
                                     <th scope="col">Action</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @forelse ($projects as $project)
+                                @forelse ($clients as $client)
                                     <tr>
-                                        <th scope="row">{{ $project->id }}</th>
-                                        <td>{{ $project->name }}</td>
-                                        <td>{{ $project->description }}</td>
-                                        <td>{{ $project->due_date }}</td>
+                                       
                                         <td>
-                                            @if($project->status == 'pending')
-                                                <span class="badge badge-warning">
-                                                    <i class="bi bi-hourglass-split"> Pending</i> 
-                                                </span>
-                                            @elseif($project->status == 'in progress')
-                                                <span class="badge badge-info">
-                                                    <i class="bi bi-play-circle"> In Progress</i> 
-                                                </span>
-                                            @elseif($project->status == 'completed')
-                                                <span class="badge badge-success">
-                                                    <i class="bi bi-check-circle"> Completed</i> 
-                                                </span>
-                                            @else
-                                                <span class="badge badge-secondary">
-                                                    <i class="bi bi-question-circle"> Unknown</i> 
-                                                </span>
-                                            @endif
+                                            <img src="{{ $client->profile_picture }}" alt="Profile Picture" class="img-fluid " style="width: 60px; height: 60px; border: 2px solid #ddd; box-shadow: 0 0 5px rgba(0,0,0,0.1);">
                                         </td>
+
+                                        <td>{{ $client->name }}</td>
+                                        <td>{{ $client->email }}</td>
+                                        <td>{{ $client->created_at }}</td>
+                                        <td>{{ $client->company }}</td>
                                         <td class="actions">
-                                            <a href="#"   data-toggle="modal" data-target="#projectModal"
-                                            data-id="{{ $project->id }}" data-name="{{ $project->name }}"
-                                            data-description="{{ $project->description }}" data-due-date="{{ $project->due_date }}"
-                                            data-status="{{ $project->status }}">
+                                            <a href="#"   data-toggle="modal" data-target="#clientModal"
+                                            data-id="{{ $client->id }}" data-name="{{ $client->name }}" data-company="{{ $client->company }}" data-joined="{{ $client->created_at }}"
+                                            data-email="{{ $client->email }}"   >
 
                                                 <i class="bi bi-eye"></i>
                                             </a>
-                                            <a href="{{ route('director.edit', $project->id) }}">
-                                                <i class="bi bi-pencil-square"></i>
-                                            </a> 
-                                            <button data-toggle="modal" data-target="#deleteModal" data-id="{{ $project->id }}" class="btn">
+                                           
+                                            <button data-toggle="modal" data-target="#deleteModal" data-id="{{ $client->id }}" class="btn">
                                                 <i class="bi bi-trash"></i>
                                             </button>
 
@@ -108,14 +91,14 @@
                                 @empty
                                     <tr>
                                         <td colspan="4">
-                                            <span class="text-danger font-weight-bold">No projects found!</span>
+                                            <span class="text-danger font-weight-bold">No clients found!</span>
                                         </td>
                                     </tr>
                                 @endforelse
                             </tbody>
                         </table>
                         <div class="pagination">
-                            {{ $projects->links() }}
+                            {{ $clients->links() }}
                         </div>
 
                     </div>   
@@ -127,24 +110,26 @@
         </div>
 
 
-         <!-- show modal --> 
-        <div class="modal fade" id="projectModal" tabindex="-1" role="dialog" aria-labelledby="projectModalLabel" aria-hidden="true">
+         <!-- show modal -->  
+        <div class="modal fade" id="clientModal" tabindex="-1" role="dialog" aria-labelledby="clientModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="projectModalLabel">Project Details</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <p><strong>Name:</strong> <span id="modal-project-name"></span></p>
-                    <p><strong>Description:</strong> <span id="modal-project-description"></span></p>
-                    <p><strong>Due Date:</strong> <span id="modal-project-due-date"></span></p>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                </div>
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="clientModalLabel">Client Details</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <p><strong>Name:</strong> <span id="modal-client-name"></span></p>
+                        <p><strong>Email:</strong> <span id="modal-client-email"></span></p>
+                        <p><strong>Company:</strong> <span id="modal-client-company"></span></p>
+                        <p><strong>Joined:</strong> <span id="modal-client-joined"></span></p>
+                        <img id="modal-client-picture" src="" alt="Profile Picture" class="img-fluid rounded-circle">
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -154,17 +139,17 @@
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="deleteModalLabel">Delete Project</h5>
+                        <h5 class="modal-title" id="deleteModalLabel">Delete client</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
                     <div class="modal-body">
-                        Are you sure you want to delete this project?
+                        Are you sure you want to delete this client?
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                        <form id="delete-project-form" action="" method="POST">
+                        <form id="delete-client-form" action="" method="POST">
                             @csrf
                             @method('DELETE')
                             <button type="submit" class="btn btn-danger">Okay</button>
@@ -178,27 +163,32 @@
             <!-- show modal -->
             <script>
                 $(document).ready(function () {
-                $('#projectModal').on('show.bs.modal', function (event) {
+                    $('#clientModal').on('show.bs.modal', function (event) {
                     var button = $(event.relatedTarget); // Button that triggered the modal
                     var id = button.data('id');
                     var name = button.data('name');
-                    var description = button.data('description');
-                    var dueDate = button.data('due-date');
-                    
+                    var email = button.data('email');
+                    var company = button.data('company');
+                    var joined = button.data('joined');
+                    var profilePicture = button.closest('tr').find('img').attr('src'); // Get the profile picture URL from the table
+
                     // Update the modal's content
                     var modal = $(this);
-                    modal.find('#modal-project-name').text(name);
-                    modal.find('#modal-project-description').text(description);
-                    modal.find('#modal-project-due-date').text(dueDate);
+                    modal.find('#modal-client-name').text(name);
+                    modal.find('#modal-client-email').text(email);
+                    modal.find('#modal-client-company').text(company);
+                    modal.find('#modal-client-joined').text(joined);
+                    modal.find('#modal-client-picture').attr('src', profilePicture);
+
                 });
                 });
 
                 $(document).ready(function() {
                 $('#deleteModal').on('show.bs.modal', function(event) {
                     var button = $(event.relatedTarget);
-                    var projectId = button.data('id');
-                    var form = $('#delete-project-form');
-                    form.attr('action', '{{ route("director.destroy", ":id") }}'.replace(':id', projectId));
+                    var clientId = button.data('id');
+                    var form = $('#delete-client-form');
+                    form.attr('action', '{{ route("director.destroy", ":id") }}'.replace(':id', clientId));
                 });
                 });
 

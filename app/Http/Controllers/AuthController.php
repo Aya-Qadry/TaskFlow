@@ -14,19 +14,28 @@ class AuthController extends Controller{
     public function register(){
          return view('auth.register');
     }
-
-    public function registerPost(Request $request){
+    
+    public function registerPost(Request $request)
+    {
         $request->validate([
-            // 'firstname' => 'required' ,
-            'name' => 'required' , 
-            'email' => 'required|email|unique:users' , 
-            'password' => 'required|min:6' ,
+            'name' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255|unique:users',
+            'password' => 'required|string|min:6',
+            'profile_picture' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'city' => 'required|string|max:255',
+            'company' => 'required|string|max:255',
         ]);
 
-        $data = $request->all() ; 
-        $check = $this->create($data) ;
-        return redirect("client-dashboard")->withSuccess('You have successfully created your account ! ');
+        $profilePicture = $request->file('profile_picture');
+        $profilePicturePath = $profilePicture->store('profile_pictures', 'public');
+
+        $data = $request->all();
+        $data['profilePicturePath'] = $profilePicturePath;
+
+        $check = $this->create($data);
+        return redirect("client-dashboard")->withSuccess('You have successfully created your account!');
     }
+
 
     public function login(){
         return view('auth.login') ; 
@@ -57,31 +66,27 @@ class AuthController extends Controller{
         return redirect("login")->withErrors($validator);
     }
     
-    public function dashboard(){
+    public function dashboard(){ 
         if(Auth::check()){
             return view('dashboard');
         }
         return redirect('login')->withSuccess('You dont have access') ; 
     }
 
-    public function create(array $data){
-        // return User::create([
-        //     'name' => $data['name'] ,
-        //     'email' => $data['email'] ,
-        //     'password' => Hash::make($data['password']) 
-        // ]);
+    public function create(array $data)
+    {
         $user = User::create([
-            'name' => $data['name'] ,
-            'email' => $data['email'] , 
-            'password' => Hash::make($data['password']) ,
-            'company' =>$data['company']
-
+            'name' => $data['name'],
+            'email' => $data['email'],
+            'password' => Hash::make($data['password']),
+            'company' => $data['company'],
+            'profile_picture' => $data['profilePicturePath'],
+            'city' => $data['city'],
         ]);
 
         $user->assignRole('client');
         Auth::login($user);
-        return $user ; 
-
+        return $user;
     }
 
 }

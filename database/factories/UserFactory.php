@@ -15,14 +15,21 @@ class UserFactory extends Factory
      *
      * @return array<string, mixed>
      */
+    protected $model = \App\Models\User::class;
+
     public function definition()
     {
+        $name = $this->faker->name;
+
         return [
-            'name' => fake()->name(),
-            'email' => fake()->unique()->safeEmail(),
+            'name' => $name,
+            'email' => $this->faker->unique()->safeEmail,
             'email_verified_at' => now(),
-            'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
+            'password' => bcrypt('password'), // password
             'remember_token' => Str::random(10),
+            'profile_picture' => 'https://i.pravatar.cc/150?img=' . rand(1, 70),
+            'company' => 'Company ' . $this->faker->numberBetween(1, 100),
+            'created_at' => now()->subDays(rand(1, 365)),
         ];
     }
 
