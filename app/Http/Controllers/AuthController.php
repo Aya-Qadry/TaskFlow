@@ -14,6 +14,10 @@ class AuthController extends Controller{
     public function register(){
          return view('auth.register');
     }
+
+    public function test(){
+        return null ; 
+    }
     
     public function registerPost(Request $request)
     {
