@@ -174,7 +174,7 @@
         });
     </script>
 
-    <!-- shrink nav -->
+    <!-- shrink nav 
     <script>
         $(window).scroll(function() {
             if ($(document).scrollTop() > 50) {
@@ -184,7 +184,7 @@
                 $('.nav').removeClass('affix');
             }
         });
-    </script>
+    </script>-->
 
 </body>
 </html>

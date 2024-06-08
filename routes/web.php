@@ -33,7 +33,8 @@ Route::get('/', function () {
 // }) ; 
 
 Route::get('/client-dashboard', function () {return view('client/client-dashboard'); });
-Route::get('/director-dashboard', function () {return view('director/dashboard'); });
+// Route::get('/director-dashboard', function () {return view('director/dashboard'); });
+Route::get('/dashboard', [AuthController::class, 'dashboard'])->name('dashboard');
 
 Route::group(['middleware' => 'auth'] , function(){
     Route::get('/dashboard' , [AuthController::class , 'dashboard']) ; 
@@ -63,6 +64,7 @@ Route::prefix('director')->name('director.')->group(function () {
 
 });
 
+Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
 
  // Routes for ProjectController, intended for clients

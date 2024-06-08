@@ -1,36 +1,37 @@
 <!DOCTYPE html>
- <html lang="en" dir="ltr">
-  <head>
+<html lang="en">
+<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title> Log in </title> 
-
- 
-    <link href="{{asset('assets/css/register.css')}}" rel="stylesheet" type="text/css"> 
-    
+    <title>Login Page</title>
+    <!-- <link rel="stylesheet" href="styles.css"> -->
+    <link href="{{ asset('assets/css/login.css') }}" rel="stylesheet" type="text/css">
 
 </head>
 <body>
-  <div class="wrapper">
-    <h2>Log in</h2>
-    <form action="{{ route('login.action')}}" method="POST">
-    @csrf
-      <div class="input-box">
-        <input type="text" placeholder="Enter your email" required name='email'>
-      </div>
+  <div class="container">
 
-        <!-- @if ($errors->has('email')) -->
-            <!-- <span class="text-danger">{{ $errors->first('email') }}</span> -->
-        <!-- @endif   -->
-      <div class="input-box">
-        <input type="password" placeholder="Create password" required name='password'>
-      </div>
+    <div class="wrapper">
+        <h2>Login</h2>
+        <form action="{{ route('login.action')}}" method="POST">
+              @csrf
 
-      <div class="input-box button">
-        <input type="Submit" value="Login">
-      </div>
-
-    </form>
+            <div class="input-box">
+                <input type="text" name="email" required>
+                <label>Email</label>
+            </div>
+            <div class="input-box">
+                <input type="password" name="password" required>
+                <label>Password</label>
+            </div>
+            <div class="button">
+                <!-- <input type="submit" value="Login"> -->
+                <button type="submit">Login</button>
+            </div>
+            
+        </form>
+    </div>
   </div>
+
 </body>
 </html>

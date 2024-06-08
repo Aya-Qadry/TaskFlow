@@ -15,9 +15,6 @@ class AuthController extends Controller{
          return view('auth.register');
     }
 
-    public function test(){
-        return null ; 
-    }
     
     public function registerPost(Request $request)
     {
@@ -55,10 +52,11 @@ class AuthController extends Controller{
         if(Auth::attempt($credentials)){
             $user = Auth::user() ; 
 
-            if($user->hasRole('client')){
+            if($user->hasRole('client')){   
                 return redirect('/client-dashboard');
             }elseif($user->hasRole('director')){
-                return redirect('/director-dashboard');
+                // return redirect('/director-dashboard');
+                return redirect()->route('director.index');
             }else{
                 return redirect('/') ; 
             }
@@ -72,7 +70,9 @@ class AuthController extends Controller{
     
     public function dashboard(){ 
         if(Auth::check()){
-            return view('dashboard');
+            // return view('dashboard');
+            return redirect()->route('director.index');
+
         }
         return redirect('login')->withSuccess('You dont have access') ; 
     }
@@ -92,6 +92,16 @@ class AuthController extends Controller{
         Auth::login($user);
         return $user;
     }
+
+    public function logout(Request $request)
+    {
+        Auth::logout();
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+
+        return redirect('/');
+    }
+
 
 }
  
