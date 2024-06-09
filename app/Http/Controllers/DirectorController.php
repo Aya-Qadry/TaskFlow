@@ -13,6 +13,7 @@ use App\Http\Requests\UpdateProjectRequest;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 use Carbon\Carbon;
 
@@ -32,25 +33,33 @@ class DirectorController extends Controller
  
     public function index()
     {
+        // Existing client-related functionality
         $clientRole = Role::where('name', 'client')->first();
-    
         $clients = $clientRole->users;
-    
+
         $clientsByMonth = $clients->groupBy(function ($client) {
             return Carbon::parse($client->created_at)->format('M Y');
         });
-    
+
         $labels = array_reverse(array_keys($clientsByMonth->toArray()));
         $data = array_reverse(array_values($clientsByMonth->map(function ($monthClients) {
             return $monthClients->count();
         })->toArray()));
-    
+
         $teams = Team::with('manager')->get();
-    
         $name = Auth::user()->name;
-    
-        return view('director.index', compact('labels', 'data', 'teams', 'name'));
+
+        $cityData = DB::table('users')
+            ->select(DB::raw('city, COUNT(*) as count'))
+            ->groupBy('city')
+            ->get();
+
+        $cityLabels = $cityData->pluck('city')->toArray();
+        $cityCounts = $cityData->pluck('count')->toArray();
+
+        return view('director.index', compact('labels', 'data', 'teams', 'name', 'cityLabels', 'cityCounts'));
     }
+
 
 
     public function edit(Project $project): View 
@@ -112,7 +121,7 @@ class DirectorController extends Controller
         return redirect()->route('director.projects')->with('success', 'Project updated successfully');
     }
 
-    
+     
 
     public function destroy(Project $project): RedirectResponse
     {
@@ -121,7 +130,12 @@ class DirectorController extends Controller
         return redirect()->route('director.projects')->with('success', 'Project deleted successfully');
     }
 
-
+    public function destroyClient(User $user): RedirectResponse
+    {
+        $user->delete();
+    
+        return redirect()->route('director.indexClients')->with('success', 'Client deleted successfully');
+    }
 
     // -------------------------- CLIENTS
     public function indexClients():View{

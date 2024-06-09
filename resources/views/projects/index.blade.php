@@ -3,176 +3,216 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Task Flow</title>
+    <script src="director-index.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
 
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.8.1/font/bootstrap-icons.min.css">
 
-    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
-   <style>
-    
-   </style>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"
+        integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF"
+        crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css">
+    <!-- Ionicons -->
+    <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <link  href="{{asset('assets/css/director-index.css')}}" rel="stylesheet" type="text/css"> 
+    <link  href="{{asset('assets/css/client-dashboard.css')}}" rel="stylesheet" type="text/css"> 
+
+
 </head>
 <body>
+        <div class="container anim" style="--delay: 0s">
+        @include('partials.clients', [])
+
+
+
+        <div class="wrapper">
+        <div class="header">
+       
+        <div class="user-settings">
+            <!-- <img class="user-img" src="https://images.unsplash.com/photo-1587918842454-870dbd18261a?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=943&q=80" alt=""> -->
+            <div class="user-name">{{$name}}</div>
+            <svg viewBox="0 0 492 492" fill="currentColor">
+            <path d="M484.13 124.99l-16.11-16.23a26.72 26.72 0 00-19.04-7.86c-7.2 0-13.96 2.79-19.03 7.86L246.1 292.6 62.06 108.55c-5.07-5.06-11.82-7.85-19.03-7.85s-13.97 2.79-19.04 7.85L7.87 124.68a26.94 26.94 0 000 38.06l219.14 219.93c5.06 5.06 11.81 8.63 19.08 8.63h.09c7.2 0 13.96-3.57 19.02-8.63l218.93-219.33A27.18 27.18 0 00492 144.1c0-7.2-2.8-14.06-7.87-19.12z"></path>
+            </svg>
+            <div class="notify">
+            <div class="notification"></div>
+            <svg viewBox="0 0 24 24" fill="currentColor">
+            <path fill-rule="evenodd" clip-rule="evenodd" d="M18.707 8.796c0 1.256.332 1.997 1.063 2.85.553.628.73 1.435.73 2.31 0 .874-.287 1.704-.863 2.378a4.537 4.537 0 01-2.9 1.413c-1.571.134-3.143.247-4.736.247-1.595 0-3.166-.068-4.737-.247a4.532 4.532 0 01-2.9-1.413 3.616 3.616 0 01-.864-2.378c0-.875.178-1.682.73-2.31.754-.854 1.064-1.594 1.064-2.85V8.37c0-1.682.42-2.781 1.283-3.858C7.861 2.942 9.919 2 11.956 2h.09c2.08 0 4.204.987 5.466 2.625.82 1.054 1.195 2.108 1.195 3.745v.426zM9.074 20.061c0-.504.462-.734.89-.833.5-.106 3.545-.106 4.045 0 .428.099.89.33.89.833-.025.48-.306.904-.695 1.174a3.635 3.635 0 01-1.713.731 3.795 3.795 0 01-1.008 0 3.618 3.618 0 01-1.714-.732c-.39-.269-.67-.694-.695-1.173z" />
+            </svg>
+            </div>
+        </div>
+        </div>
+        <div class="main-container">
+        <div class="main-header anim" style="--delay: 0s">Dashboard</div>
+        <div class="main-blogs">
+            <div class="main-blog anim" style="--delay: .1s">
+                <div class="main-blog__title"></div>
+                    <div class="main-blog__author">
+                        <div class="author-img__wrapper">
+                            <h1>Welcome to TaskFlow</h1>
+            <a href="{{ route('projects.create') }}" >
+
+                            <button>
+
+                            Create a new project ! 
+                            <div class="arrow-wrapper">
+                                <div class="arrow"></div>
+                            </div>
+                        </button>
+                        </a>
+
+                        </div>
+                    <div class="author-detail">
+                <!-- <div class="author-name">Thomas Hope</div> -->
+            <!-- <div class="author-info">53K views <span class="seperate"></span>2 weeks ago</div> -->
+            </div>
+        </div>
+        
+        </div>
+
     
-<div class="card">
-    <div class="card-header">project List</div>
-    <div class="card-body">
-        @can('create-project')
-            <a href="{{ route('projects.create') }}" class="btn btn-success btn-sm my-2"><i class="bi bi-plus-circle"></i> Add New project</a>
-        @endcan
-        <table class="table table-striped table-bordered">
-            <thead>
-                <tr>
-                <th scope="col">S</th>
-                <th scope="col">Name</th>
-                <th scope="col">Description</th>
-                <th scope="col">Status</th>
-                <th scope="col">Action</th>
-                </tr>
-            </thead>
-            <tbody>
-                @forelse ($projects as $project)
-                <tr>
-                    <th scope="row">{{ $loop->iteration }}</th>
-                    <td>{{ $project->name }}</td>
-                    <td>{{ $project->description }}</td>
-                    <td>
-                        @if($project->status == 'pending')
-                            <span class="badge badge-warning">
-                                <i class="bi bi-hourglass-split"></i> Pending
-                            </span>
-                        @elseif($project->status == 'in_progress')
-                            <span class="badge badge-info">
-                                <i class="bi bi-play-circle"></i> In Progress
-                            </span>
-                        @elseif($project->status == 'completed')
-                            <span class="badge badge-success">
-                                <i class="bi bi-check-circle"></i> Completed
-                            </span>
-                        @else
-                            <span class="badge badge-secondary">
-                                <i class="bi bi-question-circle"></i> Unknown
-                            </span>
-                        @endif
-                    </td>
-                    <td>
+            <div class="main-blog anim" style="--delay: .2s">
+            <div class="main-blog__title">Skateboard Tips You need to know</div>
+            <div class="main-blog__author tips">
+            <div class="main-blog__time">7 min</div>
+            <div class="author-img__wrapper">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check">
+                <path d="M20 6L9 17l-5-5" />
+            </svg>
+            <img class="author-img" src="https://images.unsplash.com/photo-1496345875659-11f7dd282d1d?ixid=MXwxMjA3fDB8MHxzZWFyY2h8Mzl8fG1lbnxlbnwwfHwwfA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" />
+            </div>
+            <div class="author-detail">
+            <div class="author-name">Tony Andrew</div>
+            <div class="author-info">53K views <span></span>2 weeks ago</div>
+            </div>
+            </div>
+            </div>
+        </div>
+        <div class="small-header anim" style="--delay: .3s">Trending Projects</div>
+        <div class="videos">
+    
+       
+        <div class="card" id="box">
+            <div class="content">
+                <div class="back">
+                    <div class="back-content">
+                        <img src="{{asset('assets/images/client/e-commerce.jpg')}}" alt="" style="width: 100%; height: 100%;border-radius: 20px; object-fit: cover; object-position: center;" id="card-filler">
+                    </div>
+                </div>
+                <div class="front">
+                    <div class="img">
+                        <div class="circle"></div>
+                        <div class="circle" id="right"></div>
+                        <div class="circle" id="bottom"></div>
+                    </div>
+                    <div class="front-content">
+                        <small class="badge">Starting from 100$</small>
+                        <div class="description">
+                            <div class="title">
+                                <p class="title">
+                                <strong>E-Commerce App</strong>
+                                </p>
+                                    <g style="mix-blend-mode: normal" text-anchor="none" font-size="none" font-weight="none" font-family="none" stroke-dashoffset="0" stroke-dasharray="" stroke-miterlimit="10" stroke-linejoin="miter" stroke-linecap="butt" stroke-width="1" stroke="none" fill-rule="nonzero" fill="#20c997">
+                                        <g transform="scale(8,8)">
+                                            <path d="M25,27l-9,-6.75l-9,6.75v-23h18z"></path>
+                                        </g>
+                                    </g>
+                                </svg>
+                            </div>
+                            <p class="card-footer">
+                            An intuitive and scalable online store solution with customizable product 
+                            listings, secure payment integration, and advanced analytics.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-                        <a href="#"  class="btn btn-warning btn-sm" 
-                        data-toggle="modal" 
-                        data-target="#projectModal" 
-                        data-id="{{ $project->id }}" 
-                        data-name="{{ $project->name }}" 
-                        data-description="{{ $project->description }}" 
-                        data-due-date="{{ $project->due_date }}"
-                        data-status="{{$project->status}}">
-                        <i class="bi bi-eye"></i> Show</a>
+        <div class="card" id="box">
+            <div class="content">
+                <div class="back">
+                    <div class="back-content">
+                        <img src="{{asset('assets/images/client/corporate.jpg')}}" alt="" style="width: 100%; height: 100%;border-radius: 20px; object-fit: cover; object-position: center;" id="card-filler">
+                    </div>
+                </div>
+                <div class="front">
+                    <div class="img">
+                        <div class="circle"></div>
+                        <div class="circle" id="right"></div>
+                        <div class="circle" id="bottom"></div>
+                    </div>
+                    <div class="front-content">
+                        <small class="badge">Starting from 250$</small>
+                        <div class="description">
+                            <div class="title">
+                                <p class="title">
+                                <strong>Corporate Website</strong>
+                                </p>
+                                    <g style="mix-blend-mode: normal" text-anchor="none" font-size="none" font-weight="none" font-family="none" stroke-dashoffset="0" stroke-dasharray="" stroke-miterlimit="10" stroke-linejoin="miter" stroke-linecap="butt" stroke-width="1" stroke="none" fill-rule="nonzero" fill="#20c997">
+                                        <g transform="scale(8,8)">
+                                            <path d="M25,27l-9,-6.75l-9,6.75v-23h18z"></path>
+                                        </g>
+                                    </g>
+                                </svg>
+                            </div>
+                            <p class="card-footer">
+                            Modernize your corporate website with a fresh design, improved user experience, and 
+                            enhanced functionality to better represent your brand.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-                            @can('edit-project')
-                                <a href="{{ route('projects.edit', $project->id) }}" class="btn btn-primary btn-sm"><i class="bi bi-pencil"></i> Edit</a>
-                            @endcan
+        <div class="card" id="box">
+            <div class="content">
+                <div class="back">
+                    <div class="back-content">
+                        <img src="{{asset('assets/images/client/travel.jpg')}}" alt="" style="width: 100%; height: 100%;border-radius: 20px; object-fit: cover; object-position: center;" id="card-filler">
+                    </div>
+                </div>
+                <div class="front">
+                    <div class="img">
+                        <div class="circle"></div>
+                        <div class="circle" id="right"></div>
+                        <div class="circle" id="bottom"></div>
+                    </div>
+                    <div class="front-content">
+                        <small class="badge">Starting from 200$</small>
+                        <div class="description">
+                            <div class="title">
+                                <p class="title">
+                                <strong> Travel Booking</strong>
+                                </p>
+                                    <g style="mix-blend-mode: normal" text-anchor="none" font-size="none" font-weight="none" font-family="none" stroke-dashoffset="0" stroke-dasharray="" stroke-miterlimit="10" stroke-linejoin="miter" stroke-linecap="butt" stroke-width="1" stroke="none" fill-rule="nonzero" fill="#20c997">
+                                        <g transform="scale(8,8)">
+                                            <path d="M25,27l-9,-6.75l-9,6.75v-23h18z"></path>
+                                        </g>
+                                    </g>
+                                </svg>
+                            </div>
+                            <p class="card-footer">
+                            A user-friendly travel booking website that allows users to search for flights, 
+                            hotels, and rental cars, with personalized recommendations.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-                            @can('delete-project')
-                                <!-- <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Do you want to delete this project?');"><i class="bi bi-trash"></i> Delete</button> -->
-                                <button class="btn btn-danger btn-sm" data-toggle="modal" data-target="#deleteModal" data-id="{{ $project->id }}">
-                                <i class="bi bi-trash"></i> Delete
-                                </button>
-                            @endcan
-                    </td>
-                </tr>
-                @empty
-                    <td colspan="4">
-                        <span class="text-danger">
-                            <strong>No project Found!</strong>
-                        </span>
-                    </td>
-                @endforelse
-            </tbody>
-        </table>
-
-        {{ $projects->links() }}
-
-    </div>
 </div>
 
-            <!-- show modal --> 
-            <div class="modal fade" id="projectModal" tabindex="-1" role="dialog" aria-labelledby="projectModalLabel" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="projectModalLabel">Project Details</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <p><strong>Name:</strong> <span id="modal-project-name"></span></p>
-                    <p><strong>Description:</strong> <span id="modal-project-description"></span></p>
-                    <p><strong>Due Date:</strong> <span id="modal-project-due-date"></span></p>
-                    <p><strong>Status:</strong> <span id="modal-project-status"></span></p>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                </div>
-                </div>
-            </div>
-            </div>
-
-            <!-- delete modal -->
-            <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="deleteModalLabel">Confirm Delete</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    Are you sure you want to delete this project?
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                    <form id="deleteForm" action="" method="POST" style="display:inline;">
-                        @csrf
-                        @method('DELETE')
-                        <button type="submit" class="btn btn-danger">Delete</button>
-                    </form>
-                </div>
-                </div>
-            </div>
-            </div>
-
-             <!--  modals scripts -->
-             <script>
-            $(document).ready(function () {
-            $('#projectModal').on('show.bs.modal', function (event) {
-                var button = $(event.relatedTarget); // Button that triggered the modal
-                var id = button.data('id');
-                var name = button.data('name');
-                var description = button.data('description');
-                var dueDate = button.data('due-date');
-                var status = button.data('status');
-                
-                var modal = $(this);
-                modal.find('#modal-project-name').text(name);
-                modal.find('#modal-project-description').text(description);
-                modal.find('#modal-project-status').text(status);
-                modal.find('#modal-project-due-date').text(dueDate);
-            });
-            $('#deleteModal').on('show.bs.modal', function (event) {
-                var button = $(event.relatedTarget); // Button that triggered the modal
-                var id = button.data('id');
-                var action = '{{ url("projects") }}/' + id;
-                
-                var modal = $(this);
-                modal.find('#deleteForm').attr('action', action);
-            });
-
-            });
-            </script>
+        </div>
+        </div>
+        </div>
 
 
+ 
 </body>
 </html>

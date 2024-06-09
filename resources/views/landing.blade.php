@@ -5,7 +5,40 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Task Flow</title>
     <link  href="{{asset('assets/css/landing.css')}}" rel="stylesheet" type="text/css"> 
-    
+    <style>
+      .btn {
+      position: relative;
+      display: inline-block;
+      margin: 9px;
+      padding: 15px 30px;
+      text-align: center;
+      font-size: 18px;
+      letter-spacing: 1px;
+      text-decoration: none;
+      color: #4E6E96;
+      background: transparent;
+      cursor: pointer;
+      transition: ease-out 0.5s;
+      border: 2px solid #7BB8B1 ;
+      border-radius: 10px;
+      box-shadow: inset 0 0 0 0 #4E6E96;
+    }
+
+    .btn:hover {
+      color: white;
+      box-shadow: inset 0 -100px 0 0 #7BB8B1;
+    }
+
+    .btn:active {
+      transform: scale(0.9);
+    }
+    #con{
+      font-weight : bolder ;
+      color : #32325d; 
+    }
+  
+
+    </style>
 </head>
 <body>
   <nav class="nav">
@@ -18,6 +51,9 @@
                     <li><a href="#">About</a></li>
                     <li><a href="#services">Services</a></li>
                     <li><a href="#contact">Contact</a></li>
+                    <li><a href="{{ route('login') }}">
+                    <button class="btn"> Log in</button>
+                    </a></li>
                 </ul>
             </div>
             <span class="navTrigger">
@@ -36,8 +72,14 @@
                     <!-- @auth -->
                         <!-- <a href="{{ url('/home') }}" class="text-sm text-gray-700 dark:text-gray-500 underline">Home</a> -->
                     <!-- @else -->
-                        <a class="joinUs" href="{{ route('register') }}">Create one !</a>  
-
+                        <a class="joinUs" href="{{ route('register') }}">
+                        <button class="btn" id="con">
+                        Create one !
+                          <div class="arrow-wrapper">
+                              <div class="arrow"></div>
+                          </div>
+                      </button>
+                      </a>  
                         <!-- @if (Route::has('register')) -->
                             <!-- <a href="{{ route('register') }}" class="ml-4 text-sm text-gray-700 dark:text-gray-500 underline">Register</a> -->
                         <!-- @endif -->

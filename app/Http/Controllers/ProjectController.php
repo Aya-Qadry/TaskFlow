@@ -9,6 +9,9 @@ use App\Http\Requests\UpdateProjectRequest;
 use Illuminate\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth; 
+use Illuminate\Support\Facades\Hash; 
+use Illuminate\Http\Request;
+
 
 class ProjectController extends Controller
 {
@@ -36,9 +39,19 @@ class ProjectController extends Controller
     
         $projects = Project::where('client_id', $clientId)->latest()->paginate(3);
     
-        return view('projects.index', compact('projects'));
+        $name = Auth::user()->name ; 
+        return view('projects.index', compact('projects','name'));
     }
+    public function list()
+    {
+        $clientId = auth()->id();
     
+        $projects = Project::where('client_id', $clientId)->latest()->paginate(3);
+    
+        $name = Auth::user()->name ; 
+        return view('projects.list', compact('projects','name'));
+
+    }
 
     /**
      * Show the form for creating a new resource.
@@ -50,6 +63,8 @@ class ProjectController extends Controller
         return view('projects.create') ; 
     }
 
+
+
     /**
      * Store a newly created resource in storage.
      *
@@ -58,19 +73,31 @@ class ProjectController extends Controller
      */
     public function store(StoreProjectRequest $request)
     {
-        // Project::create($request->all());
-
-        
+        // Check if a file was uploaded
+        if ($request->hasFile('logo')) {
+            // Get the uploaded file
+            $logo = $request->file('logo');
+            
+            // Store the file and get its path
+            $logoPath = $logo->store('logos', 'public');
+        } else {
+            // Handle the case where no file was uploaded
+            $logoPath = null;
+        }
+    
+        // Create the project
         $project = Project::create([
-            'name' => $request->input('name') , 
-            'description' =>  $request->input('description') , 
-            'due_date' =>  $request->input('due_date') ,
-            'client_id' => Auth::id()     
-            // 'status' => 'pending'
+            'name' => $request->input('name'),
+            'description' => $request->input('description'),
+            'due_date' => $request->input('due_date'),
+            'client_id' => auth()->id(),
+            'logo' => $logoPath,
         ]);
-
-        return redirect()->route('projects.index')->withSuccess('New project added ');
+    
+        // Redirect to the projects index page with a success message
+        return redirect()->route('projects.index')->withSuccess('New project added');
     }
+    
 
     // /**
     //  * Display the specified resource.
@@ -91,33 +118,90 @@ class ProjectController extends Controller
      * @param  \App\Models\Project  $project
      * @return \Illuminate\Http\Response
      */
-    public function edit(Project $project)
+    
+
+  
+   
+
+    public function settings()
     {
-        // return view('projects.update', compact('project'));
-        return view('projects.update',[
-                    'project' => $project 
-                ]);
+        $user = Auth::user(); 
+        $name = Auth::user()->name ; 
+
+        return view('projects.settings', compact('user','name'));
     }
 
-    /**
+   
+    public function updateSettings(Request $request): RedirectResponse
+    {
+        $user = Auth::user();  
+
+        // Validate the request inputs
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255|unique:users,email,' . $user->id,
+            'password' => 'nullable|string|min:6',
+            'profile_picture' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'company' => 'required|string|max:255',
+        ]);
+
+        // Check if a new profile picture is uploaded
+        if ($request->hasFile('profile_picture')) {
+            // Delete the old profile picture if it exists
+            if ($user->profile_picture) {
+                \Storage::disk('public')->delete($user->profile_picture);
+            }
+
+            // Store the new profile picture
+            $profilePicturePath = $request->file('profile_picture')->store('profile_pictures', 'public');
+            $user->profile_picture = $profilePicturePath;
+        }
+
+        // Update user details
+        $user->name = $request->input('name');
+        $user->email = $request->input('email');
+        if ($request->filled('password')) {
+            $user->password = Hash::make($request->input('password'));
+        }
+        $user->company = $request->input('company');
+        $user->save();
+
+        return redirect()->route('projects.index')->with('success', 'Settings updated successfully.');
+    }
+
+
+
+ /**
      * Update the specified resource in storage.
      *
      * @param  \App\Http\Requests\UpdateProjectRequest  $request
      * @param  \App\Models\Project  $project
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateProjectRequest $request, Project $project)
+
+    public function edit(Project $project) : View
     {
-        $project->update([
-            'name'=>$request->input('name') , 
-            'description' => $request->input('description') , 
-            'due_date' => $request->input('due_date') 
-            // 'company' =>$request->input('company')
-
-        ]);
-
-        return redirect() -> route('projects.index') ->withSuccess('Project updated successfully') ;
+        return view('projects.edit', compact('project'));
     }
+    
+   
+
+     public function update(UpdateProjectRequest $request, Project $project): RedirectResponse
+{
+    // Validate the request data
+    $project->update([
+        'name' => $request->input('name'),
+        'description' => $request->input('description'),
+        'status' => $request->input('status'),
+        'due_date' => $request->input('due_date'),
+    ]);
+
+    return redirect()->route('projects.index')->withSuccess('Project updated successfully');
+}
+
+     
+
+
 
     /**
      * Remove the specified resource from storage.
@@ -129,6 +213,6 @@ class ProjectController extends Controller
     {
         $project->delete();
 
-        return redirect()->route('projects.index')->withSuccess('Project deleted successfully');
+        return redirect()->route('projects.list')->withSuccess('Project deleted successfully');
     }
 }

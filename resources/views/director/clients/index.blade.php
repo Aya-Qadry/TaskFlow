@@ -66,7 +66,7 @@
                                     <tr>
                                        
                                         <td>
-                                            <img src="{{ $client->profile_picture }}" alt="Profile Picture" class="img-fluid " style="width: 60px; height: 60px; border: 2px solid #ddd; box-shadow: 0 0 5px rgba(0,0,0,0.1);">
+                                            <img src="{{ asset('storage/' . $client->profile_picture) }}" alt="{{ $client->profile_picture }}" class="" height="60px" width="60px"> 
                                         </td>
 
                                         <td>{{ $client->name }}</td>
@@ -159,6 +159,7 @@
             </div>
         </div>
 
+
              
             <!-- show modal -->
             <script>
@@ -188,9 +189,10 @@
                     var button = $(event.relatedTarget);
                     var clientId = button.data('id');
                     var form = $('#delete-client-form');
-                    form.attr('action', '{{ route("director.destroy", ":id") }}'.replace(':id', clientId));
+                    var action = '{{ route("director.destroyClient", ":id") }}'.replace(':id', clientId);
+                    form.attr('action', action);
                 });
-                });
+            });
 
             </script>
  

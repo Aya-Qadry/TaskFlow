@@ -40,16 +40,29 @@ Route::group(['middleware' => 'auth'] , function(){
     Route::get('/dashboard' , [AuthController::class , 'dashboard']) ; 
     Route::delete('/logout' , [AuthController::class , 'logout']) -> name('logout') ; 
 });
+Route::get('/projects/list', [ProjectController::class, 'list'])->name('projects.list');
+
+    Route::get('/projects/settings', [ProjectController::class, 'settings'])->name('projects.settings');
+    Route::put('/projects/settings', [ProjectController::class, 'updateSettings'])->name('projects.updateSettings');
+
+Route::prefix('projects')->name('projects.')->group(function () {
+    Route::get('edit/{project}', [ProjectController::class, 'edit'])->name('edit');
+    Route::put('update/{project}', [ProjectController::class, 'update'])->name('update');
+}); 
 
 Route::resources([
     'projects' => ProjectController::class,
     //'director'  => DirectorController::class , 
 ]);
 
+Route::delete('/director/destroyClient/{user}', [DirectorController::class, 'destroyClient'])->name('director.destroyClient');
+
+
 Route::prefix('director')->name('director.')->group(function () {
     Route::get('createTeam', [DirectorController::class, 'createTeam'])->name('createTeam');
     Route::get('index', [DirectorController::class, 'index'])->name('index');
     //Route::get('edit', [DirectorController::class, 'edit'])->name('edit');
+    
     Route::get('destroy', [DirectorController::class, 'destroy'])->name('destroy');
     Route::get('projects', [DirectorController::class, 'projects'])->name('projects');
     Route::get('edit/{project}', [DirectorController::class, 'edit'])->name('edit');
