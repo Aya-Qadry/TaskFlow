@@ -776,7 +776,7 @@ video {
  
 .card {
   width: 382px;
-  height: 254px;
+  height: 100%;
   border-radius: 20px;
 }
 
@@ -960,4 +960,7 @@ video {
   #card-filler{
     filter: blur(0.3px);
   }
+  
+ 
+
   

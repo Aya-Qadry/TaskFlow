@@ -19,6 +19,7 @@
     <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
     <link  href="{{asset('assets/css/director-index.css')}}" rel="stylesheet" type="text/css"> 
 
+    
 
 </head>
 <body>
@@ -269,6 +270,7 @@
 
     </script>
 
+<script src="{{ asset('assets/js/sidemenu.js') }}"></script>
  
 </body>
 </html>

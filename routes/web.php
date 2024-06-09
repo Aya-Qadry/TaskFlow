@@ -23,7 +23,8 @@ use App\Http\Controllers\DirectorController ;
 // });
 Route::get('/', function () {
     return view('landing');
-});
+})->name('landing');
+
 
 // Route::group(['middleware' => 'guest'] , function(){
     Route::get('/register' , [AuthController::class , 'register']) -> name('register') ; 
@@ -56,11 +57,14 @@ Route::resources([
 ]);
 
 Route::delete('/director/destroyClient/{user}', [DirectorController::class, 'destroyClient'])->name('director.destroyClient');
+Route::put('director/settings', [DirectorController::class, 'updateSettings'])->name('director.updateSettings');
 
 
 Route::prefix('director')->name('director.')->group(function () {
     Route::get('createTeam', [DirectorController::class, 'createTeam'])->name('createTeam');
     Route::get('index', [DirectorController::class, 'index'])->name('index');
+    Route::get('settings', [DirectorController::class, 'settings'])->name('settings');
+
     //Route::get('edit', [DirectorController::class, 'edit'])->name('edit');
     
     Route::get('destroy', [DirectorController::class, 'destroy'])->name('destroy');

@@ -20,6 +20,7 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <link  href="{{asset('assets/css/director-index.css')}}" rel="stylesheet" type="text/css"> 
     <link  href="{{asset('assets/css/director-projects.css')}}" rel="stylesheet" type="text/css"> 
+
 </head>
 <body>
         <div class="container">
@@ -197,6 +198,7 @@
             </script>
  
  
+ <script src="{{ asset('assets/js/sidemenu.js') }}"></script>
 
 
 </body>

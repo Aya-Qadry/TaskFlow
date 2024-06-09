@@ -12,15 +12,15 @@
       margin: 9px;
       padding: 15px 30px;
       text-align: center;
-      font-size: 18px;
       letter-spacing: 1px;
       text-decoration: none;
-      color: #4E6E96;
+      font-size: 1.1ch;
+      
       background: transparent;
       cursor: pointer;
       transition: ease-out 0.5s;
       border: 2px solid #7BB8B1 ;
-      border-radius: 10px;
+      border-radius: 10px; 
       box-shadow: inset 0 0 0 0 #4E6E96;
     }
 
@@ -34,8 +34,7 @@
     }
     #con{
       font-weight : bolder ;
-      color : #32325d; 
-    }
+      color: white;    }
   
 
     </style>
@@ -66,7 +65,7 @@
 
     <section class="home" >
         <div id="center">
-            <p id="title">Create a website for your company</p>
+            <p id="title">Create a website <br> for your company</p>
             <!-- @if (Route::has('login')) -->
                 <div class="hidden fixed top-0 right-0 px-6 py-4 sm:block">
                     <!-- @auth -->
@@ -91,6 +90,9 @@
     </section>
 
     <section class="services" id="services">
+      <div class="title">
+        <h1>One platform , multiple services</h1>
+      </div>
     <div class="services">
       <div class="cards">
         <div class="card-item">

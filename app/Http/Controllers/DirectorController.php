@@ -15,6 +15,8 @@ use Illuminate\View\View;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
+use Illuminate\Http\Request;
+
 use Carbon\Carbon;
 
 
@@ -148,4 +150,40 @@ class DirectorController extends Controller
         return view('director.clients.index',
                      compact('clients','name')) ; 
     }
+
+    public function settings(){
+        $user = Auth::user(); 
+        $name = Auth::user()->name ; 
+
+        return view('director.settings', compact('user','name'));
+    }
+
+    public function updateSettings(Request $request)
+    {
+        // Validate the request inputs
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255|unique:users,email,' . auth()->id(),
+            'password' => 'nullable|string|min:6',
+            'profile_picture' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+        ]);
+    
+        // Update user details
+        $user = auth()->user();
+        $user->name = $request->input('name');
+        $user->email = $request->input('email');
+        if ($request->filled('password')) {
+            $user->password = Hash::make($request->input('password'));
+        }
+        if ($request->hasFile('profile_picture')) {
+            // Store the new profile picture
+            $profilePicturePath = $request->file('profile_picture')->store('profile_pictures', 'public');
+            $user->profile_picture = $profilePicturePath;
+        }
+        $user->save();
+    
+        return redirect()->route('director.settings')->with('success', 'Settings updated successfully.');
+    }
+    
+
 }

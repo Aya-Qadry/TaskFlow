@@ -10,27 +10,33 @@
 </head>
 <body>
   <div class="container">
-
-    <div class="wrapper">
-        <h2>Login</h2>
-        <form action="{{ route('login.action')}}" method="POST">
-              @csrf
-
-            <div class="input-box">
-                <input type="text" name="email" required>
-                <label>Email</label>
-            </div>
-            <div class="input-box">
-                <input type="password" name="password" required>
-                <label>Password</label>
-            </div>
-            <div class="button">
-                <!-- <input type="submit" value="Login"> -->
-                <button type="submit">Login</button>
-            </div>
-            
-        </form>
+  <div class="wrapper">
+    <h2>Login</h2>
+    <form action="{{ route('login.action')}}" method="POST">
+        @csrf
+        <div class="inputs">
+        <div class="input-box">
+            <input type="text" name="email" required>
+            <label>Email</label>
+        </div> 
+        <div class="input-box">
+            <input type="password" name="password" required>
+            <label>Password</label>
+        </div>
+        </div>
+        
+        <div class="button">
+            <button type="submit" id="login" >Login</button>
+        </div>
+    </form>
+    <div class="right">
+        <a href="{{ route('landing') }}"> 
+            <img src="/assets/images/landing/bgless-logo.png" alt="">
+        </a>
     </div>
+
+</div>
+
   </div>
 
 </body>

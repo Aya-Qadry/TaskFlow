@@ -21,6 +21,61 @@
     <link  href="{{asset('assets/css/client-dashboard.css')}}" rel="stylesheet" type="text/css"> 
 
 
+    <style>
+        *{
+      font-family: var(--body-font);
+
+        }
+        .card-offer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  width: 100%;
+  padding: 20px 1px;
+  text-align: center;
+  position: relative;
+  cursor: pointer;
+  border-radius: 10px;
+  
+}
+
+.content-offer {
+}
+
+.content-offer .price-offer {
+  font-family: var(--body-font);
+
+  color: white;
+  font-weight: 800;
+  font-size: 50px;
+  text-shadow: 0px 0px 10px rgba(0, 0, 0, 0.42);
+}
+
+.content-offer .description-offer {
+    margin-top: 34px ; 
+  color: white;
+  font-weight: 800;
+  font-size: 20px;
+}
+
+.content-offer .title-offer {
+
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.64);
+  margin-top: 10px;
+  font-size: 25px;
+  letter-spacing: 1px;
+}
+
+#offer {
+    position: relative;
+    background: rgb(31,45,116);
+background: radial-gradient(circle, rgba(31,45,116,0.4632703423166141) 0%, rgba(243,238,199,1) 100%);
+}
+
+
+    </style>
 </head>
 <body>
         <div class="container anim" style="--delay: 0s">
@@ -74,20 +129,20 @@
         </div>
 
     
-            <div class="main-blog anim" style="--delay: .2s">
-            <div class="main-blog__title">Skateboard Tips You need to know</div>
+            <div class="main-blog anim" style="--delay: .2s"  id="offer">
             <div class="main-blog__author tips">
-            <div class="main-blog__time">7 min</div>
-            <div class="author-img__wrapper">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check">
-                <path d="M20 6L9 17l-5-5" />
-            </svg>
-            <img class="author-img" src="https://images.unsplash.com/photo-1496345875659-11f7dd282d1d?ixid=MXwxMjA3fDB8MHxzZWFyY2h8Mzl8fG1lbnxlbnwwfHwwfA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" />
+                
+            <div class="card-offer">
+                <div class="content-offer">
+                    <div class="price-offer">$39.99</div>
+                    <div class="description-offer">
+                    Unlock your online presence today with our special offer! 
+
+                    </div>
+                </div>
             </div>
-            <div class="author-detail">
-            <div class="author-name">Tony Andrew</div>
-            <div class="author-info">53K views <span></span>2 weeks ago</div>
-            </div>
+
+           
             </div>
             </div>
         </div>

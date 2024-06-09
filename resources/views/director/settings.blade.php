@@ -19,6 +19,7 @@
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <link  href="{{asset('assets/css/director-index.css')}}" rel="stylesheet" type="text/css"> 
+    <link  href="{{asset('assets/css/director-projects.css')}}" rel="stylesheet" type="text/css"> 
 
     <style>
         .card {
@@ -47,7 +48,7 @@
 </head>
 <body>
 <div class="container">
-    @include('partials.clients', [])
+    @include('partials.sidemenu', [])
 
     <div class="wrapper">
         <div class="header">
@@ -77,9 +78,10 @@
                             <div class="card">
                                 <div class="card-header">Update settings</div>
                                 <div class="card-body">
-                                    <form action="{{ route('projects.updateSettings') }}" method="POST" enctype="multipart/form-data">
+                                    <form action="{{ route('director.updateSettings') }}" method="POST" enctype="multipart/form-data">
                                         @csrf
                                         @method('PUT')
+
 
                                         <div class="mb-3 text-center">
                                             @if($user->profile_picture)
@@ -88,7 +90,7 @@
                                                 <img src="https://via.placeholder.com/150" alt="Profile Picture" class="img">
                                             @endif
                                         </div>
-
+                                        
                                         <div class="mb-3">
                                             <label for="name" class="form-label">Name</label>
                                             <input type="text" class="form-control" id="name" name="name" value="{{ old('name', $user->name) }}" required>
@@ -110,11 +112,7 @@
                                             <input type="file" class="form-control" id="profile_picture" name="profile_picture">
                                         </div>
 
-                                        <div class="mb-3">
-                                            <label for="company" class="form-label">Company</label>
-                                            <input type="text" class="form-control" id="company" name="company" value="{{ old('company', $user->company) }}" required>
-                                        </div>
-
+                        
                                         <button type="submit" class="btn btn-primary">Update Settings</button>
                                     </form>
                                 </div>

@@ -49,9 +49,8 @@ body:before {
 
 .container {
   background-color: #58545c;
-  max-width: 1480px;
-  max-height: 900px;
-  height: 95vh;
+  width: 50%;
+  height: 650px;
   display: flex;
   overflow: hidden;
   width: 100%;
@@ -62,77 +61,6 @@ body:before {
   position: relative;
 }
 
-.sidebar {
-  width: 220px;
-  height: 100%;
-  padding: 30px;
-  display: flex;
-  flex-direction: column;
-  flex-shrink: 0;
-  transition-duration: 0.2s;
-  overflow-y: auto;
-  overflow-x: hidden;
-}
-.sidebar .logo {
-  display: none;
-  width: 30px;
-  height: 30px;
-  background-color: #22b07d;
-  flex-shrink: 0;
-  color: #fff;
-  align-items: center;
-  border-radius: 50%;
-  justify-content: center;
-}
-.sidebar .logo-expand {
-  text-decoration: none;
-  color: #fff;
-  font-size: 19px;
-  font-weight: 600;
-  line-height: 34px;
-  position: sticky;
-  top: 0;
-}
-.sidebar .logo-expand:before {
-  content: "";
-  position: absolute;
-  top: -30px;
-  left: 0;
-  background: var(--theme-bg);
-  width: 200px;
-  height: 70px;
-  z-index: -1;
-}
-.sidebar-link:hover, .sidebar-link.is-active {
-  color: #fff;
-  font-weight: 600;
-}
-.sidebar-link:hover:nth-child(2n+1) svg, .sidebar-link.is-active:nth-child(2n+1) svg {
-  background: #ff7551;
-}
-.sidebar-link:hover:nth-child(2n) svg, .sidebar-link.is-active:nth-child(2n) svg {
-  background: #32a7e2;
-}
-.sidebar-link:hover:nth-child(2n+3) svg, .sidebar-link.is-active:nth-child(2n+3) svg {
-  background: #6c5ecf;
-}
-.sidebar.collapse {
-  width: 90px;
-  border-right: 1px solid var(--border-color);
-}
-.sidebar.collapse .logo-expand,
-.sidebar.collapse .side-title {
-  display: none;
-}
-.sidebar.collapse .logo {
-  display: flex;
-}
-.sidebar.collapse .side-wrapper {
-  width: 30px;
-}
-.sidebar.collapse .side-menu svg {
-  margin-right: 30px;
-}
 
 @-webkit-keyframes bottom {
   0% {

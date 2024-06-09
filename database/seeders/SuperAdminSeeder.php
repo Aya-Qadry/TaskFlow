@@ -1,9 +1,10 @@
 <?php
-
 namespace Database\Seeders;
 
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\File;
 
 use Hash ; 
 use App\Models\User ; 
@@ -22,8 +23,13 @@ class SuperAdminSeeder extends Seeder
         $director = User::create([
             'name' => 'aya' , 
             'email' => 'aya@gmail.com',
-            'password' => Hash::make("1234567890") 
+            'password' => Hash::make("1234567890") ,
+
         ]);
+
+        $profilePicturePath = $this->uploadProfilePicture('C:/Users/ayaqa/Downloads/chuuya.jpg');
+        $director->profile_picture = $profilePicturePath;
+        $director->save();
 
         $director->assignRole('director');
 
@@ -43,7 +49,6 @@ class SuperAdminSeeder extends Seeder
         ]) ; 
         
         $team_manager->assignRole('team_manager') ; 
- 
 
         for ($i = 0; $i < 30; $i++) {
             $user = User::factory()->create([
@@ -55,8 +60,19 @@ class SuperAdminSeeder extends Seeder
 
             $user->assignRole('client');
         }
-
-
- 
     }
+
+    private function uploadProfilePicture($path)
+{
+    // Generate a unique file name
+    $fileName = uniqid('profile_', true) . '.' . pathinfo($path, PATHINFO_EXTENSION);
+
+    // Upload the file to storage using the public disk
+    Storage::disk('public')->putFileAs('profile_pictures', new \Illuminate\Http\File($path), $fileName);
+
+    // Return the file path
+    return 'profile_pictures/' . $fileName;
+}
+
+
 }
